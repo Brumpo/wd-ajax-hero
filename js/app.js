@@ -1,7 +1,7 @@
 (function() {
   'use strict';
 
-  const movies = [];
+  var movies = [];
 
   const renderMovies = function() {
     $('#listings').empty(); //div with id listings
@@ -81,6 +81,7 @@ $form.on('click',function(e){
      movies.push(mobject);
     }
     renderMovies(movies);
+    movies =[];
   })
  });
 
