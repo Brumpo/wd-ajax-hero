@@ -4,7 +4,7 @@
   const movies = [];
 
   const renderMovies = function() {
-    $('#listings').empty();
+    $('#listings').empty(); //div with id listings
 
     for (const movie of movies) {
       const $col = $('<div>').addClass('col s6');
@@ -55,6 +55,34 @@
       $('.modal-trigger').leanModal();
     }
   };
+function Movie(id,poster,title,year){
+this.id = id;
+this.poster=poster;
+this.title=title;
+this.year=year;
+}
+var $form=$("button");
+$form.on('click',function(e){
+  e.preventDefault();
+  var $searchvalue= $("#search")[0].value;
+  $('#search').val('');
+  if($searchvalue===''){
+    alert('Please enter a movie title')
+  }
+  let xhr=$.getJSON('https://omdb-api.now.sh/?s='+$searchvalue)
+  xhr.done(function(data){
+    console.log(data);
+    for(let i=0;i<data.Search.length;i++){
+     let id=data.Search[i].imdbID
+     let poster=data.Search[i].Poster
+     let title=data.Search[i].Title
+     let year=data.Search[i].Year
+     let mobject= new Movie(id,poster,title,year)
+     movies.push(mobject);
+    }
+    renderMovies(movies);
+  })
+ });
 
-  // ADD YOUR CODE HERE
+  // ADD YOUR CODE HERe
 })();
